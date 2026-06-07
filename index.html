@@ -373,15 +373,21 @@
             
             data.months.forEach((month, mIdx) => {
                 const total = month.payments.reduce((s, p) => s + parseFloat(p.amount || 0), 0);
+                const sectionId = `section-${mIdx}`;
+                const isCollapsed = data.hiddenMonths && data.hiddenMonths.includes(sectionId);
+                
                 const section = document.createElement('div');
                 section.className = 'animate-up';
                 
                 section.innerHTML = `
-                    <div class="section-title">
-                        <span>${monthNames[month.month-1]} ${month.year}</span>
+                    <div class="section-title" onclick="toggleSection('${sectionId}')" style="cursor:pointer; user-select:none;">
+                        <span style="display:flex; align-items:center; gap:8px;">
+                            <span style="transition:transform 0.2s; transform:${isCollapsed ? 'rotate(-90deg)' : 'rotate(0deg)'}; display:inline-block;">▾</span>
+                            ${monthNames[month.month-1]} ${month.year}
+                        </span>
                         <span>${formatMoney(total)} ₺</span>
                     </div>
-                    <div class="ledger-list">
+                    <div class="ledger-list" id="${sectionId}" style="display:${isCollapsed ? 'none' : 'flex'}; flex-direction:column; gap:8px;">
                         ${month.payments.map((p, pIdx) => {
                             const bank = data.banks.find(b => b.id === p.bankId);
                             if(!bank) return '';
@@ -401,6 +407,18 @@
                 container.appendChild(section);
             });
             updateGrandTotal();
+        }
+
+        function toggleSection(id) {
+            if (!data.hiddenMonths) data.hiddenMonths = [];
+            const index = data.hiddenMonths.indexOf(id);
+            if (index > -1) {
+                data.hiddenMonths.splice(index, 1);
+            } else {
+                data.hiddenMonths.push(id);
+            }
+            saveData();
+            renderPayments();
         }
 
         function renderSettings() {

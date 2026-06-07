@@ -246,16 +246,16 @@
         <header>
             <div class="logo">NANDO</div>
             <div class="nav-actions">
-                <button class="btn-icon" onclick="exportData()">💾</button>
-                <button class="btn-icon" onclick="createNewMonth()">🗓️</button>
+                <button class="btn-icon" onclick="exportData()" title="Dışa Aktar">💾</button>
+                <button class="btn-icon" onclick="createNewMonth()" title="Yeni Dönem">🗓️</button>
             </div>
         </header>
 
         <div class="dashboard-grid">
             <div class="bento-card bento-main animate-up">
-                <span class="label">Balance Due</span>
+                <span class="label">Toplam Borç</span>
                 <div class="amount-display" id="grandTotal">0 ₺</div>
-                <button class="btn-add" onclick="showAddExpenseModal()">New Transaction</button>
+                <button class="btn-add" onclick="showAddExpenseModal()">Yeni İşlem Ekle</button>
             </div>
         </div>
 
@@ -264,73 +264,73 @@
         </div>
 
         <div id="settingsPage" style="display:none;">
-            <div class="section-title">CARDS & BANKS</div>
+            <div class="section-title">KARTLAR & HESAPLAR</div>
             <div id="bankList" class="ledger-list"></div>
-            <button class="btn-add" style="margin-top: 20px;" onclick="showAddBankModal(null)">+ Add Account</button>
+            <button class="btn-add" style="margin-top: 20px;" onclick="showAddBankModal(null)">+ Yeni Kart Ekle</button>
         </div>
     </div>
 
     <div class="tab-bar">
-        <button class="tab-btn active" id="tabPayments" onclick="switchPage('payments')">Ledger</button>
-        <button class="tab-btn" id="tabSettings" onclick="switchPage('settings')">Accounts</button>
+        <button class="tab-btn active" id="tabPayments" onclick="switchPage('payments')">Defter</button>
+        <button class="tab-btn" id="tabSettings" onclick="switchPage('settings')">Kartlar</button>
     </div>
 
     <!-- Modals (Add Expense) -->
     <div class="modal" id="addExpenseModal">
         <div class="modal-content">
-            <h2 style="font-family: var(--font-display); margin-bottom: 24px;">Add Transaction</h2>
+            <h2 style="font-family: var(--font-display); margin-bottom: 24px;">İşlem Ekle</h2>
             <div class="form-group">
-                <span class="label">Amount (₺)</span>
+                <span class="label">Tutar (₺)</span>
                 <input type="number" id="expenseAmount" class="input-minimal" placeholder="0.00">
             </div>
             <div class="form-group">
-                <span class="label">Installments</span>
+                <span class="label">Taksit Sayısı</span>
                 <input type="number" id="expenseInstallments" class="input-minimal" value="1">
             </div>
             <div class="form-group">
-                <span class="label">Account</span>
+                <span class="label">Hesap / Kart</span>
                 <select id="expenseCard" class="input-minimal" style="background: #1c1c1e;"></select>
             </div>
             <div class="form-group">
-                <span class="label">Start Period</span>
+                <span class="label">Başlangıç Dönemi</span>
                 <select id="expenseMonth" class="input-minimal" style="background: #1c1c1e;"></select>
             </div>
-            <button class="btn-add" onclick="saveExpense()">Finalize</button>
-            <button class="btn-icon" style="width:100%; margin-top:12px; border:none; background:transparent; color:var(--text-secondary);" onclick="closeModal('addExpenseModal')">Cancel</button>
+            <button class="btn-add" onclick="saveExpense()">İşlemi Tamamla</button>
+            <button class="btn-icon" style="width:100%; margin-top:12px; border:none; background:transparent; color:var(--text-secondary);" onclick="closeModal('addExpenseModal')">Vazgeç</button>
         </div>
     </div>
 
     <!-- Edit Amount Modal -->
     <div class="modal" id="addAmountModal">
         <div class="modal-content">
-            <h2 style="font-family: var(--font-display); margin-bottom: 24px;" id="amountBankName">Update</h2>
+            <h2 style="font-family: var(--font-display); margin-bottom: 24px;" id="amountBankName">Güncelle</h2>
             <div class="form-group">
-                <span class="label">New Value (₺)</span>
+                <span class="label">Yeni Tutar (₺)</span>
                 <input type="number" id="newAmount" class="input-minimal">
             </div>
-            <button class="btn-add" onclick="saveAmount()">Save Changes</button>
-            <button class="btn-icon" style="width:100%; margin-top:12px; border:none; background:transparent; color:var(--text-secondary);" onclick="closeModal('addAmountModal')">Discard</button>
+            <button class="btn-add" onclick="saveAmount()">Değişiklikleri Kaydet</button>
+            <button class="btn-icon" style="width:100%; margin-top:12px; border:none; background:transparent; color:var(--text-secondary);" onclick="closeModal('addAmountModal')">İptal</button>
         </div>
     </div>
 
     <!-- Bank Settings Modal -->
     <div class="modal" id="addBankModal">
         <div class="modal-content">
-            <h2 style="font-family: var(--font-display); margin-bottom: 24px;">Setup Account</h2>
+            <h2 style="font-family: var(--font-display); margin-bottom: 24px;">Kart Kurulumu</h2>
             <div class="form-group">
-                <span class="label">Name</span>
+                <span class="label">Kart/Banka Adı</span>
                 <input type="text" id="newBankName" class="input-minimal">
             </div>
             <div class="form-group">
-                <span class="label">Identifier (Last 4)</span>
+                <span class="label">Son 4 Hane</span>
                 <input type="text" id="newBankLastFour" class="input-minimal" maxlength="4">
             </div>
             <div class="form-group">
-                <span class="label">Cycle Day</span>
+                <span class="label">Hesap Kesim Günü</span>
                 <input type="number" id="newBankDueDay" class="input-minimal">
             </div>
-            <button class="btn-add" onclick="saveBankData()">Register</button>
-            <button class="btn-icon" style="width:100%; margin-top:12px; border:none; background:transparent; color:var(--text-secondary);" onclick="closeModal('addBankModal')">Back</button>
+            <button class="btn-add" onclick="saveBankData()">Kaydet</button>
+            <button class="btn-icon" style="width:100%; margin-top:12px; border:none; background:transparent; color:var(--text-secondary);" onclick="closeModal('addBankModal')">Geri Dön</button>
         </div>
     </div>
 

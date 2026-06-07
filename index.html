@@ -3,208 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Nando Premium | Ödeme Takip</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Nando | Private Ledger</title>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-main: #0a0a0c;
-            --bg-card: #141417;
-            --bg-input: #1c1c21;
-            --accent-primary: #6366f1;
-            --accent-secondary: #a855f7;
-            --text-main: #f4f4f5;
-            --text-muted: #a1a1aa;
-            --border: rgba(255, 255, 255, 0.08);
-            --success: #10b981;
-            --warning: #f59e0b;
-            --danger: #ef4444;
+            --bg: #000000;
+            --card-bg: rgba(28, 28, 30, 0.5);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --accent: #ffffff;
+            --text-primary: #ffffff;
+            --text-secondary: #8e8e93;
+            --success: #32d74b;
+            --danger: #ff453a;
+            --font-main: 'Inter', -apple-system, sans-serif;
+            --font-display: 'SF Pro Display', -apple-system, sans-serif;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
+            background-color: var(--bg);
+            color: var(--text-primary);
+            font-family: var(--font-main);
             min-height: 100vh;
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
+            padding: 24px 16px;
+            overflow-x: hidden;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 16px;
-        }
+        .container { max-width: 600px; margin: 0 auto; }
 
-        /* --- Header & Nav --- */
-        .top-nav {
-            background: rgba(10, 10, 12, 0.8);
-            backdrop-filter: blur(20px);
-            padding: 24px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .nav-content {
+        /* --- Minimal Header --- */
+        header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 40px;
+            padding: 0 4px;
         }
 
-        .nav-title {
+        .logo {
+            font-family: var(--font-display);
+            font-weight: 700;
             font-size: 20px;
-            font-weight: 800;
-            letter-spacing: -1px;
-            background: linear-gradient(135deg, #fff 0%, #a1a1aa 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
         }
 
-        .nav-btn-group { display: flex; gap: 8px; }
+        .nav-actions { display: flex; gap: 12px; }
 
-        .btn-ghost {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-muted);
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 600;
+        .btn-icon {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
             transition: all 0.2s;
         }
 
-        .btn-ghost:hover {
-            background: var(--bg-input);
-            color: #fff;
-            border-color: #fff;
-        }
-
-        /* --- Dashboard Area --- */
-        .dashboard-hero {
-            padding: 40px 0;
-            text-align: center;
-        }
-
-        .grand-total-label {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-        }
-
-        .grand-total-amount {
-            font-size: 64px;
-            font-weight: 800;
-            letter-spacing: -3px;
-            color: #fff;
+        /* --- Hero Bento --- */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
             margin-bottom: 24px;
         }
 
-        .add-expense-trigger {
-            background: #fff;
+        .bento-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 24px;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bento-main { grid-column: span 2; padding: 32px 24px; }
+
+        .label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .amount-display {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 44px;
+            letter-spacing: -2px;
+            margin-bottom: 16px;
+        }
+
+        .btn-add {
+            background: var(--accent);
             color: #000;
             border: none;
-            padding: 14px 32px;
+            padding: 12px 24px;
             border-radius: 14px;
-            font-weight: 700;
-            font-size: 15px;
+            font-weight: 600;
+            font-size: 14px;
+            width: 100%;
             cursor: pointer;
             transition: transform 0.2s;
         }
 
-        .add-expense-trigger:hover { transform: scale(1.02); }
+        .btn-add:active { transform: scale(0.98); }
 
-        /* --- Tabs --- */
-        .tabs {
-            display: flex;
-            background: var(--bg-card);
-            padding: 4px;
-            border-radius: 12px;
-            margin-bottom: 32px;
-            border: 1px solid var(--border);
-        }
-
-        .tab {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            background: transparent;
-            color: var(--text-muted);
+        /* --- Section Styling --- */
+        .section-title {
+            font-size: 13px;
             font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            border-radius: 10px;
-        }
-
-        .tab.active {
-            background: var(--bg-input);
-            color: #fff;
-        }
-
-        /* --- Sections & Cards --- */
-        .section-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            margin-bottom: 16px;
-            overflow: hidden;
-        }
-
-        .section-header {
-            padding: 20px 24px;
+            color: var(--text-secondary);
+            margin: 24px 0 12px 8px;
             display: flex;
             justify-content: space-between;
+        }
+
+        .ledger-list { display: flex; flex-direction: column; gap: 8px; }
+
+        .ledger-item {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 16px 20px;
+            display: flex;
             align-items: center;
-            cursor: pointer;
+            gap: 16px;
             transition: background 0.2s;
         }
 
-        .section-header:hover { background: rgba(255,255,255,0.02); }
+        .ledger-item.paid { opacity: 0.35; filter: grayscale(0.8); }
 
-        .section-title { font-weight: 700; font-size: 16px; display: flex; align-items: center; gap: 12px; }
-
-        .payment-item {
-            padding: 16px 24px;
-            border-top: 1px solid var(--border);
+        .checkbox-wrapper {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--card-border);
+            border-radius: 8px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            transition: all 0.2s;
-        }
-
-        .payment-item:hover { background: rgba(255,255,255,0.01); }
-
-        .payment-info { flex: 1; padding-left: 16px; }
-
-        .payment-name { font-weight: 600; font-size: 15px; }
-
-        .payment-meta { font-size: 12px; color: var(--text-muted); }
-
-        .payment-value { font-weight: 700; font-size: 16px; }
-
-        .payment-item.paid { opacity: 0.4; filter: grayscale(1); }
-
-        /* --- Custom Inputs --- */
-        .premium-checkbox {
-            width: 22px;
-            height: 22px;
-            accent-color: var(--accent-primary);
+            justify-content: center;
             cursor: pointer;
         }
 
-        /* --- Modals --- */
+        .checkbox-wrapper.checked { background: var(--accent); border-color: var(--accent); }
+        .checkbox-wrapper.checked::after {
+            content: '';
+            width: 10px;
+            height: 5px;
+            border-left: 2px solid #000;
+            border-bottom: 2px solid #000;
+            transform: rotate(-45deg) translateY(-1px);
+        }
+
+        .item-info { flex: 1; }
+        .item-name { font-weight: 600; font-size: 15px; margin-bottom: 2px; }
+        .item-meta { font-size: 12px; color: var(--text-secondary); }
+
+        .item-amount { font-weight: 700; font-size: 16px; font-family: var(--font-display); }
+
+        /* --- Tabs --- */
+        .tab-bar {
+            position: fixed;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(28, 28, 30, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            padding: 6px;
+            border-radius: 20px;
+            display: flex;
+            gap: 4px;
+            z-index: 1000;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            border-radius: 14px;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active { background: rgba(255,255,255,0.1); color: #fff; }
+
+        /* --- Modal (Clean) --- */
         .modal {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(15px);
+            z-index: 2000;
             align-items: center;
             justify-content: center;
             padding: 20px;
@@ -213,134 +215,128 @@
         .modal.active { display: flex; }
 
         .modal-content {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
+            background: #1c1c1e;
+            border: 1px solid var(--card-border);
+            width: 100%;
+            max-width: 400px;
+            border-radius: 32px;
             padding: 32px;
-            border-radius: 24px;
-            width: 100%;
-            max-width: 440px;
         }
 
-        .form-label { display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; }
-
-        .form-input {
+        .form-group { margin-bottom: 20px; }
+        .input-minimal {
             width: 100%;
-            background: var(--bg-input);
-            border: 1px solid var(--border);
-            padding: 14px;
-            border-radius: 12px;
-            color: #fff;
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
-
-        .form-input:focus { outline: none; border-color: var(--accent-primary); }
-
-        .btn-primary {
-            width: 100%;
-            padding: 16px;
-            background: #fff;
-            color: #000;
+            background: transparent;
             border: none;
-            border-radius: 14px;
-            font-weight: 700;
-            cursor: pointer;
+            border-bottom: 1px solid var(--card-border);
+            padding: 12px 0;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 500;
         }
+        .input-minimal:focus { outline: none; border-color: var(--accent); }
 
-        /* --- Mobile Adjustments --- */
-        @media (max-width: 600px) {
-            .grand-total-amount { font-size: 48px; }
-            .nav-btn-group { display: none; }
-        }
+        /* --- Animations --- */
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .animate-up { animation: slideUp 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
     </style>
 </head>
-<body class="dark-theme">
-    <div class="top-nav">
-        <div class="container nav-content">
-            <div class="nav-title">NANDO PREMIUM</div>
-            <div class="nav-btn-group">
-                <button class="btn-ghost" onclick="exportData()">EXPORT</button>
-                <button class="btn-ghost" onclick="document.getElementById('importFile').click()">IMPORT</button>
-                <button class="btn-ghost" onclick="createNewMonth()">NEW PERIOD</button>
-            </div>
-        </div>
-    </div>
-
-    <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importData(event)">
-
+<body>
     <div class="container">
-        <div class="dashboard-hero">
-            <p class="grand-total-label">Total Liabilities</p>
-            <h1 class="grand-total-amount" id="grandTotal">0 ₺</h1>
-            <button class="add-expense-trigger" onclick="showAddExpenseModal()">Add New Transaction</button>
-        </div>
+        <header>
+            <div class="logo">NANDO</div>
+            <div class="nav-actions">
+                <button class="btn-icon" onclick="exportData()">💾</button>
+                <button class="btn-icon" onclick="createNewMonth()">🗓️</button>
+            </div>
+        </header>
 
-        <div class="tabs">
-            <button class="tab active" onclick="switchPage('payments')">Payments</button>
-            <button class="tab" onclick="switchPage('settings')">Cards</button>
+        <div class="dashboard-grid">
+            <div class="bento-card bento-main animate-up">
+                <span class="label">Balance Due</span>
+                <div class="amount-display" id="grandTotal">0 ₺</div>
+                <button class="btn-add" onclick="showAddExpenseModal()">New Transaction</button>
+            </div>
         </div>
 
         <div id="paymentsPage">
-            <div id="otherPaymentsContainer"></div>
             <div id="monthsContainer"></div>
         </div>
 
         <div id="settingsPage" style="display:none;">
-            <div id="bankList"></div>
-            <div style="margin-top: 24px;">
-                <button class="btn-primary" onclick="showAddBankModal(null)">+ Add New Card</button>
-            </div>
+            <div class="section-title">CARDS & BANKS</div>
+            <div id="bankList" class="ledger-list"></div>
+            <button class="btn-add" style="margin-top: 20px;" onclick="showAddBankModal(null)">+ Add Account</button>
         </div>
     </div>
 
-    <!-- Modals -->
+    <div class="tab-bar">
+        <button class="tab-btn active" id="tabPayments" onclick="switchPage('payments')">Ledger</button>
+        <button class="tab-btn" id="tabSettings" onclick="switchPage('settings')">Accounts</button>
+    </div>
+
+    <!-- Modals (Add Expense) -->
     <div class="modal" id="addExpenseModal">
         <div class="modal-content">
-            <h2 style="margin-bottom: 24px;">Add Expense</h2>
-            <label class="form-label">Amount (₺)</label>
-            <input type="number" id="expenseAmount" class="form-input" placeholder="0.00">
-            
-            <label class="form-label">Installments</label>
-            <input type="number" id="expenseInstallments" class="form-input" value="1">
-            
-            <label class="form-label">Select Card</label>
-            <select id="expenseCard" class="form-input"></select>
-            
-            <label class="form-label">Starting Period</label>
-            <select id="expenseMonth" class="form-input"></select>
-            
-            <button class="btn-primary" onclick="saveExpense()">Confirm Transaction</button>
-            <button class="btn-ghost" style="width:100%; margin-top:12px;" onclick="closeModal('addExpenseModal')">Cancel</button>
+            <h2 style="font-family: var(--font-display); margin-bottom: 24px;">Add Transaction</h2>
+            <div class="form-group">
+                <span class="label">Amount (₺)</span>
+                <input type="number" id="expenseAmount" class="input-minimal" placeholder="0.00">
+            </div>
+            <div class="form-group">
+                <span class="label">Installments</span>
+                <input type="number" id="expenseInstallments" class="input-minimal" value="1">
+            </div>
+            <div class="form-group">
+                <span class="label">Account</span>
+                <select id="expenseCard" class="input-minimal" style="background: #1c1c1e;"></select>
+            </div>
+            <div class="form-group">
+                <span class="label">Start Period</span>
+                <select id="expenseMonth" class="input-minimal" style="background: #1c1c1e;"></select>
+            </div>
+            <button class="btn-add" onclick="saveExpense()">Finalize</button>
+            <button class="btn-icon" style="width:100%; margin-top:12px; border:none; background:transparent; color:var(--text-secondary);" onclick="closeModal('addExpenseModal')">Cancel</button>
         </div>
     </div>
 
+    <!-- Edit Amount Modal -->
     <div class="modal" id="addAmountModal">
         <div class="modal-content">
-            <h2 id="amountBankName" style="margin-bottom: 24px;">Edit Amount</h2>
-            <label class="form-label">New Amount</label>
-            <input type="number" id="newAmount" class="form-input">
-            <button class="btn-primary" onclick="saveAmount()">Save Changes</button>
-            <button class="btn-ghost" style="width:100%; margin-top:12px;" onclick="closeModal('addAmountModal')">Cancel</button>
+            <h2 style="font-family: var(--font-display); margin-bottom: 24px;" id="amountBankName">Update</h2>
+            <div class="form-group">
+                <span class="label">New Value (₺)</span>
+                <input type="number" id="newAmount" class="input-minimal">
+            </div>
+            <button class="btn-add" onclick="saveAmount()">Save Changes</button>
+            <button class="btn-icon" style="width:100%; margin-top:12px; border:none; background:transparent; color:var(--text-secondary);" onclick="closeModal('addAmountModal')">Discard</button>
         </div>
     </div>
 
+    <!-- Bank Settings Modal -->
     <div class="modal" id="addBankModal">
         <div class="modal-content">
-            <h2 id="bankModalTitle" style="margin-bottom: 24px;">Card Setup</h2>
-            <label class="form-label">Bank Name</label>
-            <input type="text" id="newBankName" class="form-input">
-            <label class="form-label">Last 4 Digits</label>
-            <input type="text" id="newBankLastFour" class="form-input" maxlength="4">
-            <label class="form-label">Due Day (1-31)</label>
-            <input type="number" id="newBankDueDay" class="form-input">
-            <button class="btn-primary" onclick="saveBankData()">Save Card</button>
-            <button class="btn-ghost" style="width:100%; margin-top:12px;" onclick="closeModal('addBankModal')">Cancel</button>
+            <h2 style="font-family: var(--font-display); margin-bottom: 24px;">Setup Account</h2>
+            <div class="form-group">
+                <span class="label">Name</span>
+                <input type="text" id="newBankName" class="input-minimal">
+            </div>
+            <div class="form-group">
+                <span class="label">Identifier (Last 4)</span>
+                <input type="text" id="newBankLastFour" class="input-minimal" maxlength="4">
+            </div>
+            <div class="form-group">
+                <span class="label">Cycle Day</span>
+                <input type="number" id="newBankDueDay" class="input-minimal">
+            </div>
+            <button class="btn-add" onclick="saveBankData()">Register</button>
+            <button class="btn-icon" style="width:100%; margin-top:12px; border:none; background:transparent; color:var(--text-secondary);" onclick="closeModal('addBankModal')">Back</button>
         </div>
     </div>
 
     <script>
         let data = { banks: [], months: [], otherPayments: [], hiddenMonths: [] };
-        const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const monthNames = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
         let currentAmountEdit = null, currentBankEdit = null;
 
         function formatMoney(amount) {
@@ -357,15 +353,16 @@
         function switchPage(page) {
             const pPage = document.getElementById('paymentsPage');
             const sPage = document.getElementById('settingsPage');
-            const tabs = document.querySelectorAll('.tab');
+            const tabP = document.getElementById('tabPayments');
+            const tabS = document.getElementById('tabSettings');
             
             if (page === 'payments') {
                 pPage.style.display = 'block'; sPage.style.display = 'none';
-                tabs[0].classList.add('active'); tabs[1].classList.remove('active');
+                tabP.classList.add('active'); tabS.classList.remove('active');
                 renderPayments();
             } else {
                 pPage.style.display = 'none'; sPage.style.display = 'block';
-                tabs[0].classList.remove('active'); tabs[1].classList.add('active');
+                tabP.classList.remove('active'); tabS.classList.add('active');
                 renderSettings();
             }
         }
@@ -375,34 +372,33 @@
             container.innerHTML = '';
             
             data.months.forEach((month, mIdx) => {
-                const card = document.createElement('div');
-                card.className = 'section-card';
-                
                 const total = month.payments.reduce((s, p) => s + parseFloat(p.amount || 0), 0);
+                const section = document.createElement('div');
+                section.className = 'animate-up';
                 
-                card.innerHTML = `
-                    <div class="section-header">
-                        <div class="section-title"><span>●</span> ${monthNames[month.month-1]} ${month.year}</div>
-                        <div style="font-weight:800;">${formatMoney(total)} ₺</div>
+                section.innerHTML = `
+                    <div class="section-title">
+                        <span>${monthNames[month.month-1]} ${month.year}</span>
+                        <span>${formatMoney(total)} ₺</span>
                     </div>
-                    <div class="section-body">
+                    <div class="ledger-list">
                         ${month.payments.map((p, pIdx) => {
                             const bank = data.banks.find(b => b.id === p.bankId);
                             if(!bank) return '';
                             return `
-                                <div class="payment-item ${p.paid ? 'paid' : ''}">
-                                    <input type="checkbox" class="premium-checkbox" ${p.paid ? 'checked' : ''} onclick="togglePaid(${mIdx}, ${pIdx})">
-                                    <div class="payment-info" onclick="editAmount(${mIdx}, ${pIdx})">
-                                        <div class="payment-name">${bank.name}</div>
-                                        <div class="payment-meta">Due on ${bank.dueDay}th</div>
+                                <div class="ledger-item ${p.paid ? 'paid' : ''}">
+                                    <div class="checkbox-wrapper ${p.paid ? 'checked' : ''}" onclick="togglePaid(${mIdx}, ${pIdx})"></div>
+                                    <div class="item-info" onclick="editAmount(${mIdx}, ${pIdx})">
+                                        <div class="item-name">${bank.name}</div>
+                                        <div class="item-meta">Günü: ${bank.dueDay}</div>
                                     </div>
-                                    <div class="payment-value">${formatMoney(p.amount)} ₺</div>
+                                    <div class="item-amount">${formatMoney(p.amount)} ₺</div>
                                 </div>
                             `;
                         }).join('')}
                     </div>
                 `;
-                container.appendChild(card);
+                container.appendChild(section);
             });
             updateGrandTotal();
         }
@@ -410,14 +406,14 @@
         function renderSettings() {
             const container = document.getElementById('bankList');
             container.innerHTML = data.banks.map((bank, idx) => `
-                <div class="section-card" style="padding:20px; display:flex; justify-content:space-between; align-items:center;">
-                    <div>
-                        <div style="font-weight:700;">${bank.name} (${bank.lastFour || '****'})</div>
-                        <div style="font-size:12px; color:var(--text-muted);">Due Day: ${bank.dueDay}</div>
+                <div class="ledger-item">
+                    <div class="item-info">
+                        <div class="item-name">${bank.name}</div>
+                        <div class="item-meta">${bank.lastFour || '****'} • Kesim: ${bank.dueDay}</div>
                     </div>
                     <div style="display:flex; gap:8px;">
-                        <button class="btn-ghost" onclick="showAddBankModal(${idx})">Edit</button>
-                        <button class="btn-ghost" style="color:var(--danger);" onclick="deleteBank(${idx})">Delete</button>
+                        <button class="btn-icon" onclick="showAddBankModal(${idx})">✎</button>
+                        <button class="btn-icon" style="color:var(--danger);" onclick="deleteBank(${idx})">✕</button>
                     </div>
                 </div>
             `).join('');
@@ -454,6 +450,10 @@
                 document.getElementById('newBankName').value = b.name;
                 document.getElementById('newBankLastFour').value = b.lastFour;
                 document.getElementById('newBankDueDay').value = b.dueDay;
+            } else {
+                document.getElementById('newBankName').value = '';
+                document.getElementById('newBankLastFour').value = '';
+                document.getElementById('newBankDueDay').value = '';
             }
             document.getElementById('addBankModal').classList.add('active');
         }
@@ -474,10 +474,12 @@
         }
 
         function deleteBank(idx) {
-            const id = data.banks[idx].id;
-            data.banks.splice(idx, 1);
-            data.months.forEach(m => m.payments = m.payments.filter(p => p.bankId !== id));
-            saveData(); renderSettings();
+            if(confirm('Hesabı silmek istediğine emin misin?')) {
+                const id = data.banks[idx].id;
+                data.banks.splice(idx, 1);
+                data.months.forEach(m => m.payments = m.payments.filter(p => p.bankId !== id));
+                saveData(); renderSettings();
+            }
         }
 
         function showAddExpenseModal() {
@@ -490,7 +492,7 @@
 
         function saveExpense() {
             const amt = parseFloat(document.getElementById('expenseAmount').value);
-            const inst = parseInt(document.getElementById('expenseInstallments').value);
+            const inst = parseInt(document.getElementById('expenseInstallments').value) || 1;
             const bId = parseInt(document.getElementById('expenseCard').value);
             const sIdx = parseInt(document.getElementById('expenseMonth').value);
             
@@ -507,8 +509,9 @@
 
         function createNewMonth() {
             const last = data.months[data.months.length-1] || { year: new Date().getFullYear(), month: new Date().getMonth() };
-            const m = last.month === 12 ? 1 : last.month + 1;
-            const y = last.month === 12 ? last.year + 1 : last.year;
+            let m = last.month + 1;
+            let y = last.year;
+            if(m > 12) { m = 1; y++; }
             data.months.push({ year: y, month: m, payments: data.banks.map(b => ({ bankId: b.id, amount: 0, paid: false })) });
             saveData(); renderPayments();
         }
@@ -517,12 +520,7 @@
         function exportData() {
             const blob = new Blob([JSON.stringify(data)], {type: 'application/json'});
             const url = URL.createObjectURL(blob);
-            const a = document.createElement('a'); a.href = url; a.download = 'nando-backup.json'; a.click();
-        }
-        function importData(e) {
-            const reader = new FileReader();
-            reader.onload = (ev) => { data = JSON.parse(ev.target.result); saveData(); renderPayments(); };
-            reader.readAsText(e.target.files[0]);
+            const a = document.createElement('a'); a.href = url; a.download = 'nando-data.json'; a.click();
         }
 
         loadData();
